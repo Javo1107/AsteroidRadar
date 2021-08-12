@@ -8,7 +8,7 @@ import androidx.room.Query
 
 @Dao
 interface AsteroidDao{
-    @Query("select * from databaseasteroid")
+    @Query("select * from database_asteroid_list")
     fun getAsteroids(): LiveData<List<DatabaseAsteroid>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

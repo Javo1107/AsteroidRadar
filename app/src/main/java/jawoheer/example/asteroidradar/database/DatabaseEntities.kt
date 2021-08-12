@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import jawoheer.example.asteroidradar.domain.Asteroid
 
-@Entity
+@Entity(tableName = "database_asteroid_list")
 data class DatabaseAsteroid constructor(
     @PrimaryKey
     val id: Long,
