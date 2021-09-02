@@ -1,0 +1,28 @@
+package jawoheer.example.asteroidradar.work
+
+import android.content.Context
+import androidx.work.CoroutineWorker
+import androidx.work.WorkerParameters
+import jawoheer.example.asteroidradar.database.getDatabase
+import jawoheer.example.asteroidradar.repository.AsteroidsRepository
+import retrofit2.HttpException
+
+class RefreshDataWorker(appContext: Context, params: WorkerParameters):CoroutineWorker(appContext, params){
+
+    companion object{
+        const val WORK_NAME = "RefreshDataWorker"
+    }
+
+    override suspend fun doWork(): Result {
+        val database = getDatabase(applicationContext)
+        val repository = AsteroidsRepository(database, applicationContext)
+
+        return try {
+            repository.refreshData()
+            repository.refreshPictureOfDay()
+            Result.success()
+        }catch (e: HttpException){
+            Result.retry()
+        }
+    }
+}

@@ -13,4 +13,10 @@ interface AsteroidDao{
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(vararg asteroids: DatabaseAsteroid)
+
+    @Query("select * from picture_of_day")
+    fun getPictureOfDay(): LiveData<DatabasePictureOfDay>
+
+    @Insert
+    fun insertPictureOfDay(picOfDay: DatabasePictureOfDay)
 }

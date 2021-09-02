@@ -16,12 +16,14 @@ import java.util.concurrent.TimeUnit
 
 interface AsteroidApiService {
     @GET("/neo/rest/v1/feed")
-    suspend fun getJsonObject(@Query("start_date") start_date: String?,
-                              @Query("end_date") end_date: String?,
-                                @Query("api_key") api_key: String): Deferred<String>
+    suspend fun getJsonObject(
+        @Query("start_date") start_date: String?,
+        @Query("end_date") end_date: String?,
+        @Query("api_key") api_key: String
+    ): String
 
     @GET("/planetary/apod")
-    suspend fun getPictureOfDay(@Query("api_key") apiKey: String): PictureOfDay
+    suspend fun getPictureOfDay(@Query("api_key") apiKey: String): NetworkPictureOfDay
 }
 
 var okHttpClient = OkHttpClient.Builder()
@@ -35,7 +37,7 @@ private val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
 
 private val retrofit = Retrofit.Builder().client(okHttpClient)
     .addConverterFactory(ScalarsConverterFactory.create())
-                        .addConverterFactory(MoshiConverterFactory.create(moshi))
+    .addConverterFactory(MoshiConverterFactory.create(moshi))
     .baseUrl(Constants.BASE_URL)
     .build()
 

@@ -3,6 +3,26 @@ package jawoheer.example.asteroidradar.database
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import jawoheer.example.asteroidradar.domain.Asteroid
+import jawoheer.example.asteroidradar.domain.PictureOfDay
+
+@Entity(tableName = "picture_of_day")
+data class DatabasePictureOfDay constructor(
+    @PrimaryKey
+    val date: String,
+    val mediaType: String,
+    val title: String,
+    val url: String
+)
+
+fun DatabasePictureOfDay.asDomainModel(): PictureOfDay{
+    return (
+            PictureOfDay(
+                date,
+                mediaType,
+                title,
+                url)
+            )
+}
 
 @Entity(tableName = "database_asteroid_list")
 data class DatabaseAsteroid constructor(

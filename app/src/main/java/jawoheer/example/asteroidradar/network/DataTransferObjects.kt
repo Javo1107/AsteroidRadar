@@ -1,12 +1,29 @@
 package jawoheer.example.asteroidradar.network
 
 
+import com.squareup.moshi.Json
 import jawoheer.example.asteroidradar.database.DatabaseAsteroid
-
+import jawoheer.example.asteroidradar.database.DatabasePictureOfDay
 
 
 //data class NetworkAsteroidContainer(val asteroids: List<NetworkAsteroid>)
+data class NetworkPictureOfDay(
+    val date: String,
+    @Json(name = "media_type") val mediaType: String,
+    val title: String,
+    val url: String
+)
 
+fun NetworkPictureOfDay.asDatabaseModel(): DatabasePictureOfDay {
+    return (
+            DatabasePictureOfDay(
+                date,
+                mediaType,
+                title,
+                url
+            )
+            )
+}
 
 data class NetworkAsteroid(
     val id: Long,
@@ -19,8 +36,8 @@ data class NetworkAsteroid(
     val isPotentiallyHazardous: Boolean
 )
 
-fun List<NetworkAsteroid>.asDatabaseModel(): Array<DatabaseAsteroid>{
-    return map{
+fun List<NetworkAsteroid>.asDatabaseModel(): Array<DatabaseAsteroid> {
+    return map {
         DatabaseAsteroid(
             id = it.id,
             codename = it.codename,

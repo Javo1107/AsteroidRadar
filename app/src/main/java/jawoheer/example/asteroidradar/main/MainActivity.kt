@@ -1,7 +1,8 @@
-package jawoheer.example.asteroidradar
+package jawoheer.example.asteroidradar.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import jawoheer.example.asteroidradar.R
 
 
 class MainActivity : AppCompatActivity() {
